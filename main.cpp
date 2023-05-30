@@ -1,4 +1,5 @@
 #define EN_MB1 1
+
 // #define EN_MB2 1
 #include <cstdio>
 #include <iostream>
@@ -88,7 +89,7 @@ int main()
             std::cout << "UnpackDataMessage02" << std::endl;
             
             MBBuffer.SkipBits(8);
-            std::cout << "Byte " << static_cast<unsigned int>(MBBuffer.GetByte()) << std::endl;
+            std::cout << "Byte " << static_cast<uint16_t>(MBBuffer.GetByte()) << std::endl;
             
             std::cout << "Double Word - Little Endian " << static_cast<int>(MBBuffer.GetDoubleWord(GMBUSLib::Types::ByteOrder::LITTLE_ENDIAN_NO_BYTE_SWAP)) << std::endl;
             std::cout << "Double Word - Little Endian Bytes Swap " << static_cast<int>(MBBuffer.GetDoubleWord(GMBUSLib::Types::ByteOrder::LITTLE_ENDIAN_WITH_BYTE_SWAP)) << std::endl;
@@ -233,7 +234,7 @@ int main()
                 MBBuffer.rawBuffer[5] = 0;
                 MBBuffer.rawBuffer[6] = 127;
                 MBBuffer.rawBuffer[7] = 128;
-                std::cout << "Error code = " << int(MB1.WriteMultipleRegisters(0, MBBuffer, std::chrono::milliseconds(1000))) << std::endl
+                std::cout << "Error code = " << static_cast<int16_t>(MB1.WriteMultipleRegisters(0, MBBuffer, std::chrono::milliseconds(1000))) << std::endl
                           << std::flush;
             }
 
@@ -242,11 +243,11 @@ int main()
                 GMBUSLib::Buffer MBBuffer;
                 MBBuffer.SetType(GMBUSLib::Types::ReadFC::FC1_READ_COILS, 5);
                 MB1.ReadCoils(0, 4, MBBuffer, std::chrono::milliseconds(100000));
-                std::cout << "ReadCoils - Size(bits)[" << unsigned int(MBBuffer.GetSize(GMBUSLib::Types::SizeTypes::BITS)) << "]" << std::endl
+                std::cout << "ReadCoils - Size(bits)[" << static_cast<uint16_t>(MBBuffer.GetSize(GMBUSLib::Types::SizeTypes::BITS)) << "]" << std::endl
                           << std::flush;
                 while (MBBuffer.GetTotalBitsAvailable() > 0)
                 {
-                    std::cout << "          - bit = " << unsigned int(MBBuffer.GetBit()) << "]" << std::endl;
+                    std::cout << "          - bit = " << static_cast<uint16_t>(MBBuffer.GetBit()) << "]" << std::endl;
                 }
                 std::cout << std::flush;
             }
@@ -255,11 +256,11 @@ int main()
                 // IntervalTimer Timer1;
                 GMBUSLib::Buffer MBBuffer;
                 MB1.ReadDiscreteInputs(0, 17, MBBuffer, std::chrono::milliseconds(1000));
-                std::cout << "ReadDiscreteInputs - Size(bits)[" << unsigned int(MBBuffer.GetSize(GMBUSLib::Types::SizeTypes::BITS)) << "]" << std::endl
+                std::cout << "ReadDiscreteInputs - Size(bits)[" << static_cast<uint16_t>(MBBuffer.GetSize(GMBUSLib::Types::SizeTypes::BITS)) << "]" << std::endl
                           << std::flush;
                 while (MBBuffer.GetTotalBitsAvailable() > 0)
                 {
-                    std::cout << "                   - bit = " << unsigned int(MBBuffer.GetBit()) << "]" << std::endl;
+                    std::cout << "                   - bit = " << static_cast<uint16_t>(MBBuffer.GetBit()) << "]" << std::endl;
                 }
                 std::cout << std::flush;
             }
@@ -268,11 +269,11 @@ int main()
                 // IntervalTimer Timer1;
                 GMBUSLib::Buffer MBBuffer;
                 MB1.ReadHoldingRegisters(2, 10, MBBuffer, std::chrono::milliseconds(1000));
-                std::cout << "ReadHoldingRegisters - Size(words)[" << unsigned int(MBBuffer.GetSize(GMBUSLib::Types::SizeTypes::WORDS)) << "]" << std::endl
+                std::cout << "ReadHoldingRegisters - Size(words)[" << static_cast<uint16_t>(MBBuffer.GetSize(GMBUSLib::Types::SizeTypes::WORDS)) << "]" << std::endl
                           << std::flush;
                 while (MBBuffer.GetTotalWordsAvailable() > 0)
                 {
-                    std::cout << "                   - word = " << unsigned int(MBBuffer.GetWord(GMBUSLib::Types::ByteOrder::BYTE_SWAP)) << "]" << std::endl;
+                    std::cout << "                   - word = " << static_cast<uint16_t>(MBBuffer.GetWord(GMBUSLib::Types::ByteOrder::BYTE_SWAP)) << "]" << std::endl;
                 }
                 std::cout << std::flush;
             }
@@ -281,11 +282,11 @@ int main()
                 // IntervalTimer Timer1;
                 GMBUSLib::Buffer MBBuffer;
                 MB1.ReadInputRegisters(0, 4, MBBuffer, std::chrono::milliseconds(1000));
-                std::cout << "ReadInputRegisters - Size(words)[" << unsigned int(MBBuffer.GetSize(GMBUSLib::Types::SizeTypes::WORDS)) << "]" << std::endl
+                std::cout << "ReadInputRegisters - Size(words)[" << static_cast<uint16_t>(MBBuffer.GetSize(GMBUSLib::Types::SizeTypes::WORDS)) << "]" << std::endl
                           << std::flush;
                 while (MBBuffer.GetTotalWordsAvailable() > 0)
                 {
-                    std::cout << "                   - word = " << unsigned int(MBBuffer.GetWord(GMBUSLib::Types::ByteOrder::BYTE_SWAP)) << "]" << std::endl;
+                    std::cout << "                   - word = " << static_cast<uint16_t>(MBBuffer.GetWord(GMBUSLib::Types::ByteOrder::BYTE_SWAP)) << "]" << std::endl;
                 }
                 std::cout << std::flush;
             }
