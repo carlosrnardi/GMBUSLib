@@ -68,10 +68,10 @@ int main()
     TestBuffer.SetBit(true);
 
 #ifdef EN_MB1
-    GMBUSLib::MBDriver MB1(GMBUSLib::Types::MapType::PollingInterval, "127.0.0.1", 502);
+    GMBUSLib::MBDriver MB1(GMBUSLib::Types::MapType::PollingInterval, "172.31.0.1", 502);
     //MB1.DebugPrint = true;
     GMBUSLib::Buffer Msg01;
-    MB1.AddPollingMessageToQueue(std::chrono::milliseconds(5000), GMBUSLib::Types::ReadFC::FC1_READ_COILS, 0, 16, std::chrono::seconds(10), [](GMBUSLib::Buffer MBBuffer)
+    MB1.AddPollingMessageToQueue(std::chrono::milliseconds(50), GMBUSLib::Types::ReadFC::FC1_READ_COILS, 0, 16, std::chrono::seconds(10), [](GMBUSLib::Buffer MBBuffer)
                                  {
             
             std::cout << "UnpackDataMessage01" << std::endl;
@@ -84,7 +84,7 @@ int main()
             std::cout << "Bits[12] Skip" << std::endl; MBBuffer.SkipBits(1);
             std::cout << "Bits[13-15] " << MBBuffer.GetBits(3) << std::endl << std::flush; });
 
-    MB1.AddPollingMessageToQueue(std::chrono::milliseconds(5000), GMBUSLib::Types::ReadFC::FC3_READ_REGS, 2, 50, std::chrono::seconds(10), [](GMBUSLib::Buffer MBBuffer)
+    MB1.AddPollingMessageToQueue(std::chrono::milliseconds(50), GMBUSLib::Types::ReadFC::FC3_READ_REGS, 2, 50, std::chrono::seconds(10), [](GMBUSLib::Buffer MBBuffer)
                                  {
             std::cout << "UnpackDataMessage02" << std::endl;
             
